@@ -69,11 +69,12 @@ class NumberCellToFloatParser(CellParser):
     def to_python(self):
         try:
             if self.value - int(self.value):
-                return u'%s' % self.value
+                return self.value
             else:
-                return u'%d' % int(self.value)
+                return int(self.value)
         except (TypeError, ValueError):
             raise ValidationError(_('The field required to be a number'))
+
 
 class NumberCellToStringParser(CellParser):
     """Parse number cell into text"""
@@ -122,7 +123,7 @@ class TextCellToDateParser(CellParser):
         try:
             date = parse(self.value)
         except ValueError:
-            raise  ValidationError(_('Unrecognized date format'))
+            raise ValidationError(_('Unrecognized date format'))
         else:
             return date
 
